@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import de.tictactoecomp.game.exception.IllegalMoveException;
+import de.tictactoecomp.game.utils.StringProcessing;
 
 /**
  * Diese Klasse repräsentiert eine Instanz eines Tic Tac Toe Spieles.
@@ -110,11 +111,17 @@ public class TicTacToeGame {
      */
     public void receiveMove(long id, int field) throws IllegalMoveException {
         if(field < 1 || field > 9) {
-            throw new IllegalMoveException("Das Feld, das sie versucht haben zu belegen ist nicht gültig!");
+            throw new IllegalMoveException(StringProcessing.format(
+                    "Das Feld {0} existiert nicht!",
+                    field
+            ));
         }
         
         if(!gameEnded && getCurrentPlayer().getPlayerId() != id) {
-            throw new IllegalMoveException("Sie sind derzeit nicht am Zug!");
+            throw new IllegalMoveException(StringProcessing.format(
+                    "{0} ist gerade am Zug!",
+                    getCurrentPlayer().getName()
+            ));
         }
         
         moves.add(new Move(getCurrentPlayer(), field));
@@ -154,40 +161,37 @@ public class TicTacToeGame {
      * @return ob das Spiel beendet ist, oder nicht
      */
     private boolean evaluateGameState() {
-        if(moves.size() == 9) { 
+        // Filtere alle Move-Objekte, die mit dem player1-Objekt assoziiert sind
+        List<Move> pl1Moves = this.moves.stream()
+                .filter(pl -> pl.getMoveMaker().getPlayerId() == player1.getPlayerId())
+                .collect(Collectors.toCollection(ArrayList::new));
+        
+        // Filtere ale Move-Objekte, die mit dem player2-Objekt assoziiert sind
+        List<Move> pl2Moves = this.moves.stream()
+                .filter(pl -> pl.getMoveMaker().getPlayerId() == player2.getPlayerId())
+                .collect(Collectors.toCollection(ArrayList::new));
+        
+        // falls der erste Spieler gewonnen hat setzen wir entsprechend die
+        // Attribute, und geben true zurück, um anzuzeigen, dass das Spiel geendet hat
+        if(containsWinningMoves(pl1Moves)) {
+            gameEnded = true;
+            winner = player1;
+            
             return true;
-        } else {
-            // Filtere alle Move-Objekte, die mit dem player1-Objekt assoziiert sind
-            List<Move> pl1Moves = this.moves.stream()
-                    .filter(pl -> pl.getMoveMaker().getPlayerId() == player1.getPlayerId())
-                    .collect(Collectors.toCollection(ArrayList::new));
-            
-            // Filtere ale Move-Objekte, die mit dem player2-Objekt assoziiert sind
-            List<Move> pl2Moves = this.moves.stream()
-                    .filter(pl -> pl.getMoveMaker().getPlayerId() == player2.getPlayerId())
-                    .collect(Collectors.toCollection(ArrayList::new));
-            
-            // falls der erste Spieler gewonnen hat setzen wir entsprechend die
-            // Attribute, und geben true zurück, um anzuzeigen, dass das Spiel geendet hat
-            if(containsWinningMoves(pl1Moves)) {
-                gameEnded = true;
-                winner = player1;
-                
-                return true;
-            }
-            
-            // Das gleiche für Spieler 2
-            if(containsWinningMoves(pl2Moves)) {
-                gameEnded = true;
-                winner = player2;
-                
-                return true;
-            }
-            
-            // falls keiner der beiden gewonnen hat wissen wir,
-            // dass das Spiel noch nicht geendet hat.
-            return false;
         }
+        
+        // Das gleiche für Spieler 2
+        if(containsWinningMoves(pl2Moves)) {
+            gameEnded = true;
+            winner = player2;
+            
+            return true;
+        }
+        
+        // falls keiner der beiden gewonnen hat wissen wir,
+        // ob das Spiel geendet hat, indem wir schauen,
+        // ob es noch ein freies Feld gibt.
+        return moves.size() == 9;
     }
     
     /**
