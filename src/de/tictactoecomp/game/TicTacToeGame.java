@@ -124,6 +124,12 @@ public class TicTacToeGame {
             ));
         }
         
+        if(fieldAlreadyUsed(field)) {
+            throw new IllegalMoveException(StringProcessing.format(
+                    "Das Feld {0} ist bereits belegt.", field
+            ));
+        }
+        
         moves.add(new Move(getCurrentPlayer(), field));
         
         if(!evaluateGameState()) {
@@ -131,6 +137,22 @@ public class TicTacToeGame {
         }
         
         // TODO: Refresh states / ui of the connected clients
+    }
+    
+    /**
+     * Diese Methode ermittelt, ob das gegbene Feld bereits
+     * belegt ist, oder nicht.
+     * 
+     * @param field Das Feld, das überprüft werden soll
+     * @return ob das Feld bereits belegt ist, oder nicht
+     */
+    private boolean fieldAlreadyUsed(int field) {
+        for(Move m : moves) {
+            if(m.getSelectedField() == field) {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -191,7 +213,10 @@ public class TicTacToeGame {
         // falls keiner der beiden gewonnen hat wissen wir,
         // ob das Spiel geendet hat, indem wir schauen,
         // ob es noch ein freies Feld gibt.
-        return moves.size() == 9;
+        boolean ended = moves.size() == 9;
+        
+        gameEnded = ended;
+        return ended;
     }
     
     /**
