@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import de.tictactoecomp.game.exception.IllegalMoveException;
 import de.tictactoecomp.game.utils.StringProcessing;
 
 /**
@@ -47,6 +46,11 @@ public class TicTacToeGame {
      * {@link TicTacToeGame#gameEnded} ausgewertet werden.
      */
     private Player winner;
+    /**
+     * Der allgemeine Zustand des Spiels, der genutzt werden kann, um den Zustand des Spiels an
+     * die Clients zu übertragen.
+     */
+    private GameState currentGameState;
     
     /**
      * Dieser Konstruktor erstellt ein Spiel mit den gegebenen
@@ -59,9 +63,59 @@ public class TicTacToeGame {
     public TicTacToeGame(Player pl1, Player pl2) {
         this.player1 = pl1;
         this.player2 = pl2;
+
+        this.player1.notifyOfGameAttachment(this);
+        this.player2.notifyOfGameAttachment(this);
+        
         this.currentPlayer = 0;
         this.moves = new ArrayList<>();
         this.winner = null;
+        
+        this.currentGameState = new GameState(
+                player1.getPlayerId(),
+                null,
+                new int[0],
+                false,
+                false
+        );
+    }
+    
+    /**
+     * Diese Methode gibt ihnen den derzeitigen Zustand des Spieles.
+     * 
+     * @return den Zustand des Spieles
+     * @see GameState
+     */
+    public GameState getCurrentGameState() {
+        return currentGameState;
+    }
+    
+    /**
+     * Diese Methode ermittelt, ob das Spiel bereits beendet ist.
+     * 
+     * @return ob das Spiel beendet ist
+     */
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+    
+    /**
+     * Diese Methode gibt ihnen den Spieler, der den Gegenspieler des gegebenen Spielers darstellt.
+     * 
+     * @return den Gegenspieler des gegebenen Spielers; {@code null} falls der gegebene Spieler
+     *         nicht Teil dieses Spiels ist.
+     */
+    public Player getOpponent(Player pl) {
+        boolean isPlayer1 = pl.getPlayerId().equals(player1.getPlayerId());
+        boolean isPlayer2 = pl.getPlayerId().equals(player2.getPlayerId());
+        
+        if(!isPlayer1 && !isPlayer2) {
+            return null;
+        } else if(isPlayer1) {
+            return player2;
+        } else {
+            return player1;
+        }
     }
     
     /**
@@ -109,34 +163,100 @@ public class TicTacToeGame {
      * @param field das Feld, das der Spieler belegen möchte
      * @throws IllegalMoveException falls der Versuch des Zuges ungültig ist
      */
-    public void receiveMove(long id, int field) throws IllegalMoveException {
-        if(field < 1 || field > 9) {
-            throw new IllegalMoveException(StringProcessing.format(
-                    "Das Feld {0} existiert nicht!",
-                    field
-            ));
-        }
-        
-        if(!gameEnded && getCurrentPlayer().getPlayerId() != id) {
-            throw new IllegalMoveException(StringProcessing.format(
+    public void receiveMove(String id, int field) {  
+        if(!gameEnded && !getCurrentPlayer().getPlayerId().equals(id)) {
+            
+            if(!getOpponent(getCurrentPlayer()).getPlayerId().equals(id)) {
+                System.out.println(StringProcessing.format(
+                        "Somehow a player with the illegal id {0} has accessed this game!",
+                        id
+                ));
+                return;
+            }
+            
+            updateError(
+                    getOpponent(getCurrentPlayer()),
                     "{0} ist gerade am Zug!",
                     getCurrentPlayer().getName()
-            ));
+            );
+            return;
+
+        }
+        
+        if(field < 1 || field > 9) {
+            updateError(
+                    getCurrentPlayer(),
+                    "Das Feld {0} existiert nicht!",
+                    field
+            );
+            return;
         }
         
         if(fieldAlreadyUsed(field)) {
-            throw new IllegalMoveException(StringProcessing.format(
-                    "Das Feld {0} ist bereits belegt.", field
-            ));
+            updateError(
+                    getCurrentPlayer(),
+                    "Das Feld {0} ist bereits belegt.",
+                    field
+            );
+            return;
         }
         
         moves.add(new Move(getCurrentPlayer(), field));
+        
+        getCurrentPlayer().setMessage("");
         
         if(!evaluateGameState()) {
             currentPlayer++;
         }
         
-        // TODO: Refresh states / ui of the connected clients
+        updateGameState();
+    }
+    
+    /**
+     * Diese Methode aktualisiert den Zustand des Spiels bei einem aufgetretenen Fehler.
+     * Die Nachricht für die Clients wird dabei aus dem gegebenen Template und den Tokens ermittelt.
+     * 
+     * @param templ das Template, das für die Nachricht genutzt wird
+     * @param tokens die Tokens, die für die Nachricht genutzt werden
+     */
+    private void updateError(Player pl, String templ, Object... tokens) {
+        pl.setMessage(StringProcessing.format(templ, tokens));
+        
+        currentGameState.update(
+                getCurrentPlayer().getPlayerId(),
+                null,
+                createFieldsArray(),
+                true,
+                false
+        );
+    }
+    
+    /**
+     * Diese Methode aktualisiert den Zustand des Spiels nach einem erfolgreichen Zustandswechsel
+     */
+    private void updateGameState() {
+        Player currPlayer = getCurrentPlayer();
+        
+        currentGameState.update(
+                (currPlayer == null)? null : currPlayer.getPlayerId(),
+                (winner == null)? null : winner.getPlayerId(),
+                createFieldsArray(),
+                false,
+                gameEnded
+        );
+    }
+    
+    /**
+     * Diese Methode ermittelt die Felder, die belegt sind, in der Reihenfolge, in der diese belegt worden sind.
+     * 
+     * @return ein Array mit den belegten Feldern, in der Reihenfolge, in der diese belegt wurden
+     */
+    private int[] createFieldsArray() {
+        int[] result = new int[moves.size()];
+        for(int i = 0; i < result.length; i++) {
+            result[i] = moves.get(i).getSelectedField();
+        }
+        return result;
     }
     
     /**
@@ -284,5 +404,81 @@ public class TicTacToeGame {
         // falls wir durch alle Züge sind, ohne dass ein Zug nicht gefunden wurde
         // können wir true zurück geben
         return true;
+    }
+    
+    /**
+     * Diese Klasse repräsentiert den derzeitigen Spielzustand, der dazu genutzt werden kann
+     * um den Clients, die dem Spiel zugeteilt sind, den derzeitigen Zustand des Spiels zu übermitteln.
+     */
+    public static class GameState {
+        
+        /**
+         * Die ID des Spielers, der gerade am Zug ist
+         */
+        private String currentTurnPlayerId;
+        /**
+         * Die ID des Spielers, der das Spiel gewonnen hat
+         */
+        private String winnerPlayerId;
+        /**
+         * Die Felder, die belegt sind, in der Reihenfolge, in der diese belegt wurden
+         */
+        private int[] fields;
+        /**
+         * Ob ein Fehler in dem letzten Zugversuch entstand
+         */
+        private boolean error;
+        /**
+         * Ob das Spiel beendet ist
+         */
+        private boolean finished;
+        
+        private GameState(
+                String currentTurnPlayerId,
+                String winnerPlayerId,
+                int[] fields,
+                boolean error,
+                boolean finished
+        ) {
+            this.currentTurnPlayerId = currentTurnPlayerId;
+            this.winnerPlayerId = winnerPlayerId;
+            this.fields = fields;
+            this.error = error;
+            this.finished = finished;
+        }
+        
+        public String getCurrentTurnPlayerId() {
+            return currentTurnPlayerId;
+        }
+        
+        public String getWinnerPlayerId() {
+            return winnerPlayerId;
+        }
+        
+        public int[] getFields() {
+            return fields;
+        }
+        
+        public boolean isError() {
+            return error;
+        }
+        
+        public boolean isFinished() {
+            return finished;
+        }
+        
+        private void update(
+                String currentTurnPlayerId,
+                String winnerPlayerId,
+                int[] fields,
+                boolean error,
+                boolean finished
+        ) {
+            this.currentTurnPlayerId = currentTurnPlayerId;
+            this.winnerPlayerId = winnerPlayerId;
+            this.fields = fields;
+            this.error = error;
+            this.finished = finished;
+        }
     }
 }

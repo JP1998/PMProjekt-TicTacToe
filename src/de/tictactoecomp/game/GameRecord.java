@@ -14,24 +14,24 @@ public class GameRecord {
      * Diese Konstante entspricht einem unbekannten Spieler.
      * Diese kann genutzt werden, um ein Unentschieden anzuzeigen.
      */
-    public static final int UNDEFINED_PLAYER = -1;
+    public static final String UNDEFINED_PLAYER = "-1";
     /**
      * Diese Konstante entspricht einem Spieler mit künstlicher Intelligenz.
      */
-    public static final int AI_PLAYER = -2;
+    public static final String AI_PLAYER = "-2";
     
     /**
      * Dieses Feld zeigt die ID des ersten Spielers des Spiels an.
      */
-    private final long player1Id;
+    private final String player1Id;
     /**
      * Dieses Feld zeigt die ID des zweiten Spielers des Spiels an.
      */
-    private final long player2Id;
+    private final String player2Id;
     /**
      * Dieses Feld zeigt die ID des gewinnenden Spielers an.
      */
-    private final long winnerId;
+    private final String winnerId;
     /**
      * Dieses Feld beinhaltet alle Z�ge, die in diesem Spiel gemacht
      * wurden, in der Reihenfolge, in der diese gemacht wurden.
@@ -48,7 +48,7 @@ public class GameRecord {
      * @see GameRecord#UNDEFINED_PLAYER
      * @see GameRecord#AI_PLAYER
      */
-    /* package-protected */ GameRecord(long p1Id, long p2Id, long wId, int[] moves) {
+    /* package-protected */ GameRecord(String p1Id, String p2Id, String wId, int[] moves) {
         this.player1Id = p1Id;
         this.player2Id = p2Id;
         this.winnerId = wId;
@@ -62,7 +62,7 @@ public class GameRecord {
      * @see GameRecord#UNDEFINED_PLAYER
      * @see GameRecord#AI_PLAYER
      */
-    public long getPlayer1Id() {
+    public String getPlayer1Id() {
         return player1Id;
     }
     
@@ -73,7 +73,7 @@ public class GameRecord {
      * @see GameRecord#UNDEFINED_PLAYER
      * @see GameRecord#AI_PLAYER
      */
-    public long getPlayer2Id() {
+    public String getPlayer2Id() {
         return player2Id;
     }
     
@@ -84,7 +84,7 @@ public class GameRecord {
      * @see GameRecord#UNDEFINED_PLAYER
      * @see GameRecord#AI_PLAYER
      */
-    public long getWinnerId() {
+    public String getWinnerId() {
         return winnerId;
     }
     
