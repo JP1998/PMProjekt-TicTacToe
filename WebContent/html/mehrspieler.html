@@ -4,6 +4,8 @@
 	<meta charset="utf-8" />
 	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <script type="text/javascript" src="../js/field.js"></script>
+  <script type="text/javascript" src="../js/hint.js"></script>
     <title>Tic Tac Toe: Mehrspieler</title>
 </head>
 <header>
@@ -14,7 +16,7 @@
 				<li><a href="einzelspieler.html">Einzelspieler</a></li>
 				<li><a href="mehrspieler.html">Mehrspieler</a></li>
 				<li><a href="einstellungen.html">Einstellungen</a></li>
-				<li><a href="#">?</a></li>
+				<li><a href="#" id="hintsign">?</a></li>
 
 			</ul>
 		</div>
@@ -42,7 +44,14 @@
 				</tbody>
 			</table>
 		<h1> Mehrspieler</h1>
+    <canvas id="gameCanvas" width="800" height="600" style="border:0px solid #000000;">
+		</canvas>
 	</div>
+  <script>
+			field();
+      addHint();
+      hint();
+		</script>
 	
 </body>
 <footer>
