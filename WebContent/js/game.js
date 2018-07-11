@@ -1,10 +1,15 @@
 // TODO: Event-Listener für Canvas implementieren
-document.getElementById('singlePlayerCanvas').addEventListener('click', handleCickOnCanvas);
+
+function initGame()
+{
+  document.getElementById('gameCanvas').addEventListener('click', handleCickOnCanvas);
+}
 
 function handleCickOnCanvas(event)
 {
   x = event.offsetX;
   y = event.offsetY;
+  alert("X: " + x + " Y: " + y);
 }
 // TODO: XMLHttpRequest Objekt setzen
 // TODO: Aktualisierung des Feldes bearbeiten
