@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
  	<script type="text/javascript" src="../js/field.js">
 	 </script>
+  <script type="text/javascript" src="../js/hint.js"></script>
 
 	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/style.css" />
@@ -17,7 +18,7 @@
 				<li><a href="einzelspieler.html">Einzelspieler</a></li>
 				<li><a href="mehrspieler.html">Mehrspieler</a></li>
 				<li><a href="einstellungen.html">Einstellungen</a></li>
-				<li><a href="#">?</a></li>
+				<li><a href="#" id="hintsign">?</a></li>
 
 			</ul>
 		</div>
@@ -48,11 +49,13 @@
 				</tbody>
 			</table>
 
-		<canvas id="singlePlayerCanvas" width="800" height="600" style="border:0px solid #000000;">
+		<canvas id="gameCanvas" width="800" height="600" style="border:0px solid #000000;">
 		</canvas>
 
 		<script>
 			field();
+      addHint();
+      hint();
 		</script>
 
 	</div>
