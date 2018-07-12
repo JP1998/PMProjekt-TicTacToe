@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Tic Tac Toe: Einzelspieler</title>
+        <title>Tic Tac Toe: Mehrspieler</title>
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="js/field.js"></script>
@@ -13,13 +13,13 @@
         <header>
             <div id="header">
                 <div id="navi">
-                    <a href="/PMProjekt-TicTacToe/index"><img src="images/splash.png" height="42" width="62"/></a>
-                    <ul>
-                        <li><a href="/PMProjekt-TicTacToe/singleplayer">Einzelspieler</a></li>
-                        <li><a href="/PMProjekt-TicTacToe/multiplayer">Mehrspieler</a></li>
-                        <li><a href="/PMProjekt-TicTacToe/settings">Einstellungen</a></li>
-                        <li><a href="#" id="hintsign">?</a></li>
-                    </ul>
+                <a href="/PMProjekt-TicTacToe/index"><img src="images/splash.png" height="42" width="62"/></a>
+                <ul>
+                    <li><a href="/PMProjekt-TicTacToe/singleplayer">Einzelspieler</a></li>
+                    <li><a href="/PMProjekt-TicTacToe/multiplayer">Mehrspieler</a></li>
+                    <li><a href="/PMProjekt-TicTacToe/settings">Einstellungen</a></li>
+                    <li><a href="#" id="hintsign">?</a></li>
+                </ul>
                 </div>
             </div>
         </header>
@@ -30,7 +30,7 @@
                         <td><h2><a target="popup" onclick="window.open"
                             width="50" height="50" scrollbars="no" toolbar="no" status="no" 
                             resizable="yes" menubar="no" location="no" directories="no" top="10" left="10"
-                            href="/PMProjekt-TicTacToe/popup">Highscore</a></h2></td>
+                            href="popupdatei.html">Highscore</a></h2></td>
                     </tr>
                     <tr>
                         <td><label>1.</label><input id="labelhighscore" readonly="readonly"></td>
@@ -43,22 +43,23 @@
                     </tr>
                 </tbody>
             </table>
+            <h1> Mehrspieler</h1>
             <canvas id="gameCanvas" width="900" height="600" style="border:0px solid #000000;"></canvas>
-            <footer>
-                <div id="footer">
-                    <ul>
-                        <li><a href="#"> Impressum</a></li>
-                        <li><a href="#"> Datenschutz</a></li>
-                        <li><a href="#">FAQ's</a></li>
-                    </ul>
-                </div>
-            </footer>
-            <script>
-            field();
-            addHint();
-            hint();
-            initGame();
-            </script>
         </div>
+        <footer>
+            <div id="footer">
+                <ul>
+                    <li><a href="#"> Impressum</a></li>
+                    <li><a href="#"> Datenschutz</a></li>
+                    <li><a href="#">FAQ's</a></li>
+                </ul>
+            </div>
+        </footer>
+        <script>
+        field();
+        addHint();
+        hint();
+        initGame();
+        </script>
     </body>
 </html>
