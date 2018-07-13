@@ -12,9 +12,40 @@ background-size: auto;
 }
 
 #start ul li{
+	border-style: none;
 	padding-top:15px;
 	text-shadow: 2px 2px 4px #000000;
 	zoom:none;
+}
+
+#spielereins{
+	font-family: 'Indie Flower','sans-serif','arial';
+	font-size:42pt;
+	border-style: none;
+	padding-top:15px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom:none;
+}
+
+#spielerzwei{
+	font-family: 'Indie Flower','sans-serif','arial';
+	font-size:42pt;
+	border-style: none;
+	padding-top:15px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom:none;
+}
+
+
+#playbutton{
+	font-family: 'Indie Flower','sans-serif','arial';
+	font-size:42pt;
+	text-align: center;
+	border-style: solid;
+	padding-top:15px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom:none;
+	background-color: lightgreen;
 }
 
 #start a{
@@ -157,6 +188,7 @@ a{
 a:hover{
 	color: white;
 }
+
 #spielereins{
 	text-align: center;
 }
