@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+ 	<script type="text/javascript" src="../js/field.js">
+	 </script>
+  <script type="text/javascript" src="../js/hint.js"></script>
+  <script type="text/javascript" src="../js/game.js"></script>
+
+
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <title>Tic Tac Toe: Einzelspieler</title>
+</head>
+<header>
+<div id="header">
+		<div id="navi">
+			<a href="start.html"><img src="../images/splash.png" height="42" width="62"/></a>
+			<ul>
+				<li><a href="einzelspieler.html">Einzelspieler</a></li>
+				<li><a href="mehrspieler.html">Mehrspieler</a></li>
+				<li><a href="#" id="hintsign">?</a></li>
+
+			</ul>
+		</div>
+	</div>
+</header>
+
+<body>
+
+	<div id="content">
+			<table id="tablehighscore">
+
+				<tbody id="tbodyhighscore">
+					<tr>
+						<td><h2><a target="popup" onclick="window.open"
+  									width="50" height="50" scrollbars="no" toolbar="no" status="no" 
+  									resizable="yes" menubar="no" location="no" directories="no" top="10" left="10"
+  									href="popupdatei.html">Highscore</a></h2></td>
+					</tr>
+					<tr>
+						<td><label>1.</label><input id="labelhighscore" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td><label>2.</label><input id="labelhighscore" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td><label>3.</label><input id="labelhighscore" readonly="readonly"></td>
+					</tr>
+				</tbody>
+			</table>
+
+		<canvas id="gameCanvas" width="900" height="600" style="border:0px solid #000000;">
+		</canvas>
+
+		<script>
+			field();
+      addHint();
+      hint();
+      initGame();
+		</script>
+
+	</div>
+</body>
+<footer>
+	<div id="footer">
+		<ul>
+			<li><a href="#"> Impressum</a></li>
+			<li><a href="#"> Datenschutz</a></li>
+			<li><a href="#">FAQ's</a></li>
+		</ul>
+	</div>
+</footer>
+</html>

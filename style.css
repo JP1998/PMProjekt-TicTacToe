@@ -1,0 +1,159 @@
+body{
+font-family: 'Indie Flower','sans-serif','arial';
+background-size: auto;
+}
+
+#start ul{
+	padding-top:20px;
+	text-align:center;
+	list-style:none;
+	font-size:42pt;
+
+}
+
+#start ul li{
+	padding-top:15px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom:none;
+}
+
+#start a{
+	color:black;
+	text-decoration:none;
+}
+
+#start img{
+	margin-top:80px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#start a:hover{
+	color:lightgreen;
+	font-size:52pt;
+}
+
+#footer{
+
+	width:100%;
+	height:60px;
+	background-color:lightgreen;
+}
+
+canvas{
+	width: 75%;
+	height: 85%;
+}
+#footer ul{
+	display: block;
+	list-style:none;
+	text-align:center;
+	padding-top:20px;
+}
+
+#footer ul li{
+		display:inline;
+
+}
+
+#footer a{
+	color:black;
+	text-decoration:none;
+}
+
+#footer a:hover{
+	color:white;
+}
+
+#navi{
+	width:100%;
+	height:80px;
+	background-color:lightgreen;
+}
+
+#navi img{
+	float:left;
+	width:20%;
+	padding-top:16px;
+}
+
+#navi ul{
+	float:right;
+	width:70%;
+	text-align:right;
+	list-style:none;
+	font-size:20pt;
+}
+
+#navi ul li{
+	display:inline;
+	padding-right:20px;
+
+}
+
+#navi a{
+	color:black;
+	text-decoration:none;
+}
+
+#navi a:hover{
+	color:white;
+}
+
+#content{
+	height:800px;
+}
+
+#content{
+	display: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center; 
+    float: left:auto;
+}
+
+#highscore {
+	float:right;
+	display: center;
+	margin-right: auto;
+	margin-left: auto;
+	width: 100%;
+	color:white;
+}
+
+table{
+	position: absolute;
+}
+
+#highscore td{
+	width:20%;
+	display: right;
+}
+
+#tbodyhighscore{
+	position: right;
+	background-color: lightgreen;
+	text-align: center;
+	color:black;
+}
+
+#tablehighscore{
+	right: 5px;
+}
+
+#labelhighscore{
+	border-style: none;
+	background-color: lightgreen;
+}
+
+a{
+	text-decoration: none;
+	color:black;
+}
+
+a:hover{
+	color: white;
+}
