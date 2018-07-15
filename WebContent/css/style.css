@@ -1,6 +1,11 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
 body{
-font-family: 'Indie Flower','sans-serif','arial';
-background-size: auto;
+	font-family: 'Indie Flower','sans-serif','arial';
+	background-size: auto;
 }
 
 #start ul{
@@ -16,36 +21,6 @@ background-size: auto;
 	padding-top:15px;
 	text-shadow: 2px 2px 4px #000000;
 	zoom:none;
-}
-
-#spielereins{
-	font-family: 'Indie Flower','sans-serif','arial';
-	font-size:42pt;
-	border-style: none;
-	padding-top:15px;
-	text-shadow: 2px 2px 4px #000000;
-	zoom:none;
-}
-
-#spielerzwei{
-	font-family: 'Indie Flower','sans-serif','arial';
-	font-size:42pt;
-	border-style: none;
-	padding-top:15px;
-	text-shadow: 2px 2px 4px #000000;
-	zoom:none;
-}
-
-
-#playbutton{
-	font-family: 'Indie Flower','sans-serif','arial';
-	font-size:42pt;
-	text-align: center;
-	border-style: solid;
-	padding-top:15px;
-	text-shadow: 2px 2px 4px #000000;
-	zoom:none;
-	background-color: lightgreen;
 }
 
 #start a{
@@ -67,10 +42,17 @@ background-size: auto;
 }
 
 #footer{
-
+	position: fixed;
+	bottom: 0px;
+	
 	width:100%;
 	height:60px;
-	background-color:lightgreen;
+	background-color: lightgreen;
+}
+
+#spacer {
+	width:100%;
+	height:70px;
 }
 
 canvas{
@@ -134,16 +116,17 @@ canvas{
 }
 
 #content{
-	height:800px;
-}
-
-#content{
+    width: 60%;
 	display: center;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+	font-weight: bold;
     text-align: center; 
     float: left:auto;
+}
+
+#content > ul > li {
+    text-align: left; 
 }
 
 #highscore {
@@ -186,13 +169,39 @@ a{
 }
 
 a:hover{
-	color: white;
+	color: gray;
 }
 
-#spielereins{
+#spielereins {
 	text-align: center;
+	font-family: 'Indie Flower','sans-serif','arial';
+	font-size: 24pt;
+	border-style: none;
+	padding-top: 8px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom:none;
 }
 
-#spielerzwei{
+#spielerzwei {
 	text-align: center;
+	font-family: 'Indie Flower','sans-serif','arial';
+	font-size: 24pt;
+	border-style: none;
+	padding-top: 8px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom: none;
 }
+
+#playbutton {
+	font-family: 'Indie Flower','sans-serif','arial';
+	font-size: 24pt;
+	text-align: center;
+	border-style: solid;
+	padding-top: 8px;
+	padding-left: 32px;
+	padding-right: 32px;
+	text-shadow: 2px 2px 4px #000000;
+	zoom:none;
+	background-color: lightgreen;
+}
+
