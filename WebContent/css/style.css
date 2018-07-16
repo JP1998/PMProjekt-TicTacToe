@@ -220,11 +220,22 @@ a:hover{
 }
 
 #resetButton {
-	font-size: 16pt;
-	widht: 100%;
-	text-align: center;
-	border-style: solid;
-	padding-top: 8px;
-	text-shadow: 2px 2px 4px #000000;
-	background-color: yellowgreen;
+    font-size: 16pt;
+    width: 100%;
+    text-align: center;
+    border-style: solid;
+    padding-top: 8px;
+    text-shadow: 2px 2px 4px #000000;
+    background-color: yellowgreen;
+}
+
+#deleteButton {
+	margin-top:8px;
+    font-size: 16pt;
+    width: 100%;
+    text-align: center;
+    border-style: solid;
+    padding-top: 8px;
+    text-shadow: 2px 2px 4px #000000;
+    background-color: yellowgreen;
 }

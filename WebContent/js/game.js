@@ -23,6 +23,18 @@ function resetGame() {
 	request.send();
 }
 
+function deleteGame() {
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+	  		updateGameState();
+		}
+	}
+
+	request.open("GET", url + "/delete", true);
+	request.send();
+}
+
 // Funktion für das Klick-Ereignis auf dem Spielfeld
 function handleCickOnCanvas(event) {
 	if(gamestate.gameEnded) {
