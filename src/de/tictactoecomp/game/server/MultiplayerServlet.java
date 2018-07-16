@@ -3,6 +3,7 @@ package de.tictactoecomp.game.server;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,7 @@ import de.tictactoecomp.game.utils.StringProcessing;
 public class MultiplayerServlet extends LoggingServlet {
     
     private static Map<String, MultiPlayerPair> currentPlayerPairs;
+    private static final Pattern namingPattern = Pattern.compile("^[a-zA-ZäÄöÖüÜ][a-zA-Z\\-äÄöÖüÜ]{0,19}$");
     
     public MultiplayerServlet() {
         super();
@@ -36,13 +38,13 @@ public class MultiplayerServlet extends LoggingServlet {
         
         if(currentPlayerPairs.containsKey(pairId) == false) {
             String name1 = request.getParameter("player1");
-            if(name1 == null) {
+            if(name1 == null || !namingPattern.matcher(name1).matches()) {
                 response.setStatus(400);
                 return;
             }
             
             String name2 = request.getParameter("player2");
-            if(name2 == null) {
+            if(name2 == null || !namingPattern.matcher(name2).matches()) {
                 response.setStatus(400);
                 return;
             }
