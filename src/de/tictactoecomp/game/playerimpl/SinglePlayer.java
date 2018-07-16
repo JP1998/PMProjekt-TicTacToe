@@ -11,12 +11,9 @@ public class SinglePlayer extends Player {
     
     @Override
     public void makeMove(int field) {
-        currentGame.receiveMove(this.playerId, field);
+        int error = currentGame.receiveMove(this.playerId, field);
         
-        // TODO: Somehow detect errors and make AI not take any turn!
-        // FIXME: Currently also called when errors occur (like a taken field is selected)
-        // FIXME: which causes the game to lock up.
-        if(!currentGame.isGameEnded()) {
+        if(error == 0 && !currentGame.isGameEnded()) {
             currentGame.getOpponent(this).makeMove(-1);
         }
     }

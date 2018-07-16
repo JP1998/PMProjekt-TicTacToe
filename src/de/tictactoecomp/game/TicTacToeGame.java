@@ -118,6 +118,13 @@ public class TicTacToeGame {
         }
     }
     
+    public static final int ERROR_CODE_SUCCESS = 0;
+    public static final int ERROR_CODE_GAMEENDED = 1;
+    public static final int ERROR_CODE_ILLEGALPLAYERID = 2;
+    public static final int ERROR_CODE_NOTPLAYERSTURN = 4;
+    public static final int ERROR_CODE_NONEXISTINGFIELD = 8;
+    public static final int ERROR_CODE_TAKENFIELD = 16;
+    
     /**
      * Diese Methode lässt einen der Spieler seinen Zug machen.
      * Um sicherzustellen, dass der Spieler, der den Zug abgibt
@@ -153,7 +160,7 @@ public class TicTacToeGame {
      *         <td style="border: 1px solid black; padding: 12px;">9</td>
      *     </tr>
      * </table>
-     * ⇒ die Nummer {@code n} des Feldes mit der Zeile {@code z}
+                 * ⇒ die Nummer {@code n} des Feldes mit der Zeile {@code z}
      *    und Spalte {@code s}, wobei beide 1-indiziert sind,
      *    kann wie folgt berechnet werden:
      *    
@@ -162,10 +169,13 @@ public class TicTacToeGame {
      * @param id die ID des Spielers, der den Zug abgibt
      * @param field das Feld, das der Spieler belegen möchte
      * @throws IllegalMoveException falls der Versuch des Zuges ungültig ist
+     * @returns a number according to whether there was an error; 
+     *          0 if the move was received successfully;
+     *          other according to constants ERROR_CODE_&lt; code description &gt;
      */
-    public void receiveMove(String id, int field) {
+    public int receiveMove(String id, int field) {
         if(gameEnded) {
-            return;
+            return ERROR_CODE_GAMEENDED;
         }
         
         if(!getCurrentPlayer().getPlayerId().equals(id)) {
@@ -175,7 +185,7 @@ public class TicTacToeGame {
                         "Somehow a player with the illegal id {0} has accessed this game!",
                         id
                 ));
-                return;
+                return ERROR_CODE_ILLEGALPLAYERID;
             }
             
             updateError(
@@ -183,7 +193,7 @@ public class TicTacToeGame {
                     "{0} ist gerade am Zug!",
                     getCurrentPlayer().getName()
             );
-            return;
+            return ERROR_CODE_NOTPLAYERSTURN;
 
         }
         
@@ -193,7 +203,7 @@ public class TicTacToeGame {
                     "Das Feld {0} existiert nicht!",
                     field
             );
-            return;
+            return ERROR_CODE_NONEXISTINGFIELD;
         }
         
         if(fieldAlreadyUsed(field)) {
@@ -202,7 +212,7 @@ public class TicTacToeGame {
                     "Das Feld {0} ist bereits belegt.",
                     field
             );
-            return;
+            return ERROR_CODE_TAKENFIELD;
         }
         
         moves.add(new Move(getCurrentPlayer(), field));
@@ -226,6 +236,7 @@ public class TicTacToeGame {
         }
         
         updateGameState();
+        return ERROR_CODE_SUCCESS;
     }
     
     /**
@@ -365,7 +376,7 @@ public class TicTacToeGame {
      * @return ob die gegebene Liste eine gewinnende Kombination enthält
      */
     public static boolean containsWinningMoves(List<Move> movesToEval) {
-        // ein Array, das alle m�glichen Gewinnkombinationen aufstellt
+        // ein Array, das alle m�glichen Gewinnkombinationen aufstellt
         int[][] winningMovesToCheck = {
                 { 1, 2, 3 },
                 { 4, 5, 6 },
