@@ -67,9 +67,7 @@ function updateGameState() {
 		}
 	}
 	
-	request.open("GET", "http://localhost:8080/PMProjekt-TicTacToe/singleplayer/update", true);
+	request.open("GET", url + "/update", true);
 	request.send();	
-	
-	// setTimeout(updateGameState, 1000);
 }
 
