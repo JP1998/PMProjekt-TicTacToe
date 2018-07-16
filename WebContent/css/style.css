@@ -56,9 +56,9 @@ body{
 }
 
 canvas{
-	width: 75%;
-	height: 85%;
+	margin-top: 70px;
 }
+
 #footer ul{
 	display: block;
 	list-style:none;
@@ -67,7 +67,7 @@ canvas{
 }
 
 #footer ul li{
-		display:inline;
+	display:inline;
 
 }
 
@@ -94,7 +94,8 @@ canvas{
 
 #navi ul{
 	float:right;
-	width:70%;
+	margin-top: 16px;
+	margin-right: 32px;
 	text-align:right;
 	list-style:none;
 	font-size:20pt;
@@ -203,5 +204,10 @@ a:hover{
 	text-shadow: 2px 2px 4px #000000;
 	zoom:none;
 	background-color: lightgreen;
+}
+
+#gameMessage {
+	margin-top: 12px;
+	font-size: 24pt;
 }
 

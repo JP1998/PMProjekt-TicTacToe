@@ -27,7 +27,8 @@ public class SinglePlayerServlet extends LoggingServlet {
     }
     
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
         HttpSession session = request.getSession();
         String playerId = session.getId();
 	    
@@ -37,13 +38,13 @@ public class SinglePlayerServlet extends LoggingServlet {
                     playerId,
                     "Player 1"
             );
+
+            new TicTacToeGame(player, new AIPlayer());
             
             currentPlayers.put(
                     request.getSession().getId(),
                     player
             );
-            
-            new TicTacToeGame(player, new AIPlayer());
             
             log("Single player game created for user with id '{0}'.", playerId);
         }
@@ -134,7 +135,7 @@ public class SinglePlayerServlet extends LoggingServlet {
                 resp.setStatus(401);
                 return;
             }
-            
+
             resp.getWriter().append(currentPlayers.get(playerId).getStatusJSON());
         }
          

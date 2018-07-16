@@ -163,8 +163,12 @@ public class TicTacToeGame {
      * @param field das Feld, das der Spieler belegen möchte
      * @throws IllegalMoveException falls der Versuch des Zuges ungültig ist
      */
-    public void receiveMove(String id, int field) {  
-        if(!gameEnded && !getCurrentPlayer().getPlayerId().equals(id)) {
+    public void receiveMove(String id, int field) {
+        if(gameEnded) {
+            return;
+        }
+        
+        if(!getCurrentPlayer().getPlayerId().equals(id)) {
             
             if(!getOpponent(getCurrentPlayer()).getPlayerId().equals(id)) {
                 System.out.println(StringProcessing.format(
@@ -207,6 +211,18 @@ public class TicTacToeGame {
         
         if(!evaluateGameState()) {
             currentPlayer++;
+        }
+        
+        if(gameEnded) {
+            String winnerMessage;
+            
+            if(winner == null) {
+                winnerMessage = "Das Spiel endete in einem Unentschieden!";
+            } else {
+                winnerMessage = StringProcessing.format("{0} hat das Spiel gewonnen!", winner.getName());
+            }
+            player1.setMessage(winnerMessage);
+            player2.setMessage(winnerMessage);
         }
         
         updateGameState();
@@ -348,8 +364,8 @@ public class TicTacToeGame {
      * @param movesToEval Die Liste von Moves, die zu evaluieren sind
      * @return ob die gegebene Liste eine gewinnende Kombination enthält
      */
-    private boolean containsWinningMoves(List<Move> movesToEval) {
-        // ein Array, das alle möglichen Gewinnkombinationen aufstellt
+    public static boolean containsWinningMoves(List<Move> movesToEval) {
+        // ein Array, das alle m�glichen Gewinnkombinationen aufstellt
         int[][] winningMovesToCheck = {
                 { 1, 2, 3 },
                 { 4, 5, 6 },
@@ -383,7 +399,7 @@ public class TicTacToeGame {
      * @param movesToContain die Züge, die alle enthalten sein sollen
      * @return ob die Liste alle der gegebenen Züge enthält
      */
-    private boolean containsAllMoves(List<Move> movesToEval, int[] movesToContain) {
+    public static boolean containsAllMoves(List<Move> movesToEval, int[] movesToContain) {
         // wir gehen durch alle zu enthaltenden Züge
         for(int i = 0; i < movesToContain.length; i++) {
             // und suchen den Zug in der Liste

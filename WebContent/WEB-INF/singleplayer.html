@@ -7,23 +7,21 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="js/field.js"></script>
         <script type="text/javascript" src="js/hint.js"></script>
-        <script type="text/javascript" src="js/game.js"></script>
+        <script type="text/javascript" src="js/singleplayergame.js"></script>
     </head>
     <body>
-        <header>
-            <div id="header">
-                <div id="navi">
-                    <a href="/PMProjekt-TicTacToe/index"><img src="images/splash.png" height="42" width="62"/></a>
-                    <ul>
-                        <li><a href="/PMProjekt-TicTacToe/singleplayer">Einzelspieler</a></li>
-                        <li><a href="/PMProjekt-TicTacToe/multiplayer">Mehrspieler</a></li>
-                        <li><a href="#" id="hintsign">?</a></li>
-                    </ul>
-                </div>
+        <div id="header">
+            <div id="navi">
+                <a href="/PMProjekt-TicTacToe/index"><img src="images/splash.png" height="42" width="62"/></a>
+                <ul>
+                    <li><a href="/PMProjekt-TicTacToe/singleplayer">Einzelspieler</a></li>
+                    <li><a href="/PMProjekt-TicTacToe/multiplayer">Mehrspieler</a></li>
+                    <li><a href="#" id="hintsign">?</a></li>
+                </ul>
             </div>
-        </header>
+        </div>
         <div id="content">
-            <table id="tablehighscore">
+            <!--table id="tablehighscore">
                 <tbody id="tbodyhighscore">
                     <tr>
                         <td><h2><a target="popup" onclick="window.open"
@@ -41,22 +39,20 @@
                         <td><label>3.</label><input id="labelhighscore" readonly="readonly"></td>
                     </tr>
                 </tbody>
-            </table>
-            <canvas id="gameCanvas" width="900" height="600" style="border:0px solid #000000;"></canvas>
-            <footer>
-                <div id="footer">
-                    <ul>
-                        <li><a href="/PMProjekt-TicTacToe/impressum"> Impressum</a></li>
-                        <li><a href="/PMProjekt-TicTacToe/datenschutz"> Datenschutz</a></li>
-                        <li><a href="/PMProjekt-TicTacToe/faq">FAQ's</a></li>
-                    </ul>
-                </div>
-            </footer>
-            <script>
-            field();
-            addHint();
-            initGame();
-            </script>
+            </table-->
+            <canvas id="gameCanvas" width="600px" height="600px" style="border:0px solid #000000;"></canvas>
+        	<p id="gameMessage"></p>
         </div>
+        <div id="footer">
+            <ul>
+                <li><a href="/PMProjekt-TicTacToe/impressum"> Impressum</a></li>
+                <li><a href="/PMProjekt-TicTacToe/datenschutz"> Datenschutz</a></li>
+                <li><a href="/PMProjekt-TicTacToe/faq">FAQ's</a></li>
+            </ul>
+        </div>
+        <script>
+        addHint();
+        initGame();
+        </script>
     </body>
 </html>
