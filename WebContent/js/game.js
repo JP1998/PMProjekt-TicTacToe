@@ -2,7 +2,8 @@
 var gamestate = {
 		turn : false,
 		fields : [],
-		message : ""
+		message : "",
+		gameEnded : false
 };
 
 function initGame() {
@@ -24,6 +25,11 @@ function resetGame() {
 
 // Funktion für das Klick-Ereignis auf dem Spielfeld
 function handleCickOnCanvas(event) {
+	if(gamestate.gameEnded) {
+		resetGame();
+		return;
+	}
+	
 	x = event.offsetX;
   	y = event.offsetY;
   

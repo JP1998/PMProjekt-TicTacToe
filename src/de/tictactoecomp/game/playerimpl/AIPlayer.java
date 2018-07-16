@@ -104,7 +104,7 @@ public class AIPlayer extends Player {
                 }
             }
         
-            if(maxValue == Integer.MAX_VALUE) {
+            if(maxValue == Integer.MIN_VALUE) {
                 return -1;
             } else {
                 return findChildByValue(maxValue).getFieldChoice();
@@ -162,7 +162,7 @@ public class AIPlayer extends Player {
         }
         
         public static int calculateWinner(int[][] movesToEval) {
-            // ein Array, das alle möglichen Gewinnkombinationen aufstellt
+            // ein Array, das alle mï¿½glichen Gewinnkombinationen aufstellt
             int[][] winningMovesToCheck = {
                     { 1, 2, 3 },
                     { 4, 5, 6 },

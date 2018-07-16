@@ -5,13 +5,20 @@ import de.tictactoecomp.game.utils.StringProcessing;
 
 public class MultiPlayer extends Player {
 
+    private int lastErrorCode;
+    
     public MultiPlayer(String name, String id) {
         super(name,id);
+        this.lastErrorCode = 0;
     }
     
     @Override
     public void makeMove(int field) {
-        currentGame.receiveMove(this.playerId, field);
+        this.lastErrorCode = currentGame.receiveMove(this.playerId, field);
+    }
+    
+    public int getLastErrorCode() {
+        return lastErrorCode;
     }
 
     @Override
@@ -21,7 +28,8 @@ public class MultiPlayer extends Player {
                 System.lineSeparator(),
                 hasTurn(),
                 createFieldsArray(),
-                getMessage()
+                getMessage(),
+                currentGame.getCurrentGameState().isFinished()
         );
     }
 }

@@ -25,7 +25,8 @@ public class SinglePlayer extends Player {
                 System.lineSeparator(),
                 hasTurn(),
                 createFieldsArray(),
-                getMessage()
+                getMessage(),
+                currentGame.getCurrentGameState().isFinished()
         );
     }
 }
