@@ -7,8 +7,8 @@ public class MultiPlayer extends Player {
 
     private int lastErrorCode;
     
-    public MultiPlayer(String name, String id) {
-        super(name,id);
+    public MultiPlayer(String id, String name) {
+        super(id, name);
         this.lastErrorCode = 0;
     }
     

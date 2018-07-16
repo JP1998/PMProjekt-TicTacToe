@@ -13,8 +13,8 @@ public class MultiPlayerPair {
     private int currentPlayer;
     
     public MultiPlayerPair(String id, String name1, String name2) {
-        this.player1 = new MultiPlayer(name1, id + "1");
-        this.player2 = new MultiPlayer(name2, id + "2");
+        this.player1 = new MultiPlayer(id + "1", name1);
+        this.player2 = new MultiPlayer(id + "2", name2);
         
         this.assignedGame = new TicTacToeGame(player1, player2);
         
@@ -39,5 +39,13 @@ public class MultiPlayerPair {
 
     public String getStatusJSON() {
         return getCurrentPlayer().getStatusJSON();
+    }
+    
+    public String getPlayer1Name() {
+        return this.player1.getName();
+    }
+    
+    public String getPlayer2Name() {
+        return this.player2.getName();
     }
 }
