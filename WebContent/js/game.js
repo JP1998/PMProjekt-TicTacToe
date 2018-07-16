@@ -3,7 +3,8 @@ var gamestate = {
 		turn : false,
 		fields : [],
 		message : "",
-		gameEnded : false
+		gameEnded : false,
+		playerwithturn : ""
 };
 
 function initGame() {
@@ -73,6 +74,7 @@ function repaint() {
 	drawField(gamestate.fields);
 	console.log(document.getElementById("gameMessage"));
 	document.getElementById("gameMessage").innerHTML = gamestate.message;
+	document.getElementById("playerwithturn-name").innerHTML = (gamestate.gameEnded)? "Spiel beendet." : "Am Zug: " + gamestate.playerwithturn;
 }
 
 function updateGameState() {

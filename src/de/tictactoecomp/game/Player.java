@@ -9,7 +9,7 @@ package de.tictactoecomp.game;
  */
 public abstract class Player {
 	
-    public static final String JSON_TEMPLATE = "{{{0}    \"turn\" : {1},{0}    \"fields\" : [ {2} ],{0}    \"message\" : \"{3}\",{0}    \"gameEnded\" : {4}}}";
+    public static final String JSON_TEMPLATE = "{{{0}    \"turn\" : {1},{0}    \"fields\" : [ {2} ],{0}    \"message\" : \"{3}\",{0}    \"gameEnded\" : {4},{0}    \"playerwithturn\" : \"{5}\"{0}}}";
     
     /**
      * Die ID des Spielers

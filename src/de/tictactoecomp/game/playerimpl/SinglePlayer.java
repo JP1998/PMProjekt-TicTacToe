@@ -26,7 +26,8 @@ public class SinglePlayer extends Player {
                 hasTurn(),
                 createFieldsArray(),
                 getMessage(),
-                currentGame.getCurrentGameState().isFinished()
+                currentGame.getCurrentGameState().isFinished(),
+                (currentGame.getCurrentPlayer() != null)? currentGame.getCurrentPlayer().getName() : ""
         );
     }
 }

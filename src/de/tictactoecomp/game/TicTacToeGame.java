@@ -309,7 +309,7 @@ public class TicTacToeGame {
      * @return den derzeitigen Spieler;
      * {@code null} falls das Spiel beendet ist
      */
-    private Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         if(gameEnded) {
             return null;
         }

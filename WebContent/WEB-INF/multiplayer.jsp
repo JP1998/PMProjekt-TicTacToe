@@ -25,6 +25,7 @@
             <div id="name-container">
 	            <p id="player1-name">Player 1: ${param.player1}</p>
 	            <p id="player2-name">Player 2: ${param.player2}</p>
+                <p id="playerwithturn-name"></p>
                 <button id="resetButton" onclick="resetGame();">Spiel zurücksetzen</button>
                 <form action="/PMProjekt-TicTacToe/multiplayer/delete" method="get">
                     <button id="deleteButton" type="submit">Spiel löschen</button>
