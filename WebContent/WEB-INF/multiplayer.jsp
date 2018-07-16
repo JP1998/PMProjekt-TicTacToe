@@ -4,6 +4,11 @@
         <meta charset="utf-8" />
         <title>Tic Tac Toe: Mehrspieler</title>
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="js/field.js"></script>
         <script type="text/javascript" src="js/hint.js"></script>
@@ -23,8 +28,8 @@
         <div id="content">
             <h1> Mehrspieler</h1>
             <div id="name-container">
-	            <p id="player1-name">Player 1: ${param.player1}</p>
-	            <p id="player2-name">Player 2: ${param.player2}</p>
+	            <p id="player1-name">Spieler 1: ${param.player1}</p>
+	            <p id="player2-name">Spieler 2: ${param.player2}</p>
                 <p id="playerwithturn-name"></p>
                 <button id="resetButton" onclick="resetGame();">Spiel zurücksetzen</button>
                 <form action="/PMProjekt-TicTacToe/multiplayer/delete" method="get">
@@ -41,6 +46,63 @@
                 <li><a href="/PMProjekt-TicTacToe/faq">FAQ's</a></li>
             </ul>
         </div>
+        
+        <div id="hint-background" onclick="dismissHint();"></div>        
+        <div id="hint-content" class="carousel slide" data-ride="carousel" data-interval="10000">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#hint-content" data-slide-to="0" class="active"></li>
+                <li data-target="#hint-content" data-slide-to="1"></li>
+                <li data-target="#hint-content" data-slide-to="2"></li>
+                <li data-target="#hint-content" data-slide-to="3"></li>
+            </ol>
+            
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="images/hint-page1.png" alt="Tic Tac Toe">
+                    <div class="carousel-caption">
+                        <h3 class="hint-slide-caption">Zwei Spieler gegeneinander</h3>
+                        <p class="hint-slide-description">Die Namen der Spieler können Sie in der oberen rechten Ecke sehen.</p>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <img src="images/hint-page2.png" alt="Tic Tac Toe">
+                    <div class="carousel-caption">
+                        <h3 class="hint-slide-caption">Spiel neu starten</h3>
+                        <p class="hint-slide-description">Um ein Spiel neu zu starten, können Sie einfach den "Spiel zurücksetzen" Button benutzen. Um neue Namen zu vergeben müssen Sie das Spiel vorher löschen.</p>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <img src="images/hint-page3.png" alt="Tic Tac Toe">
+                    <div class="carousel-caption">
+                        <h3 class="hint-slide-caption">Farben und Zeichen</h3>
+                        <p class="hint-slide-description">Der Spieler, der zuerst am Zug ist hat immer das rote Kreuz. Der zweite Spieler immer den grünen Kreis.</p>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <img src="images/hint-page4.png" alt="Tic Tac Toe">
+                    <div class="carousel-caption">
+                        <h3 class="hint-slide-caption">Gewinnkondition</h3>
+                        <p class="hint-slide-description">Um das Spiel zu gewinnen müssen Sie vor Ihrem Gegenspieler drei Felder in einer Reihe belegen.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#hint-content" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#hint-content" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        
         <script>
         var url = "http://localhost:8080/PMProjekt-TicTacToe/multiplayer";
 

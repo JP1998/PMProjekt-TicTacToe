@@ -240,3 +240,40 @@ a:hover{
     text-shadow: 2px 2px 4px #000000;
     background-color: yellowgreen;
 }
+
+#hint-background {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+}
+
+#hint-content {
+	position: fixed;
+	top: 10%;
+	left: 50%;
+	width: 800px;
+	margin-left: -400px;
+	height: 450px;
+	background-color: white;
+    visibility: hidden;
+}
+
+.hint-slide-caption {
+	color: white;
+	font-size: 24pt;
+}
+
+.hint-slide-description {
+    color: white;
+    font-size: 16pt;
+}
+
+.carousel-caption {
+	background: rgba(0, 0, 0, 0.6);
+	  box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.6);
+}
+

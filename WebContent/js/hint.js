@@ -4,9 +4,11 @@ function addHint() {
 }
 
 function showHint() {
-	alert("Ziel des Spieles ist es, als erster drei gleiche Symbole in einer Reihe, Spalte oder Diagonal zu setzen. Die Spieler sind abwechselnd am Zug.");
+	document.getElementById("hint-background").style.visibility = "visible";
+	document.getElementById("hint-content").style.visibility = "visible";
 }
 
 function dismissHint() {
-	
+	document.getElementById("hint-background").style.visibility = "hidden";
+	document.getElementById("hint-content").style.visibility = "hidden";
 }
