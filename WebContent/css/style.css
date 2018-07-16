@@ -1,10 +1,10 @@
 * {
+	font-family: 'Indie Flower','sans-serif','arial';
 	margin: 0px;
 	padding: 0px;
 }
 
 body{
-	font-family: 'Indie Flower','sans-serif','arial';
 	background-size: auto;
 }
 
@@ -175,7 +175,6 @@ a:hover{
 
 #spielereins {
 	text-align: center;
-	font-family: 'Indie Flower','sans-serif','arial';
 	font-size: 24pt;
 	border-style: none;
 	padding-top: 8px;
@@ -185,7 +184,6 @@ a:hover{
 
 #spielerzwei {
 	text-align: center;
-	font-family: 'Indie Flower','sans-serif','arial';
 	font-size: 24pt;
 	border-style: none;
 	padding-top: 8px;
@@ -194,7 +192,6 @@ a:hover{
 }
 
 #playbutton {
-	font-family: 'Indie Flower','sans-serif','arial';
 	font-size: 24pt;
 	text-align: center;
 	border-style: solid;
@@ -202,7 +199,6 @@ a:hover{
 	padding-left: 32px;
 	padding-right: 32px;
 	text-shadow: 2px 2px 4px #000000;
-	zoom:none;
 	background-color: lightgreen;
 }
 
@@ -211,3 +207,24 @@ a:hover{
 	font-size: 24pt;
 }
 
+#name-container {
+	position: absolute;
+	top: 90px;
+	right: 10px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-left: 18px;
+	padding-right: 18px;
+	font-size: 18pt;
+	background-color: lightgreen;
+}
+
+#resetButton {
+	font-size: 16pt;
+	widht: 100%;
+	text-align: center;
+	border-style: solid;
+	padding-top: 8px;
+	text-shadow: 2px 2px 4px #000000;
+	background-color: crimson;
+}

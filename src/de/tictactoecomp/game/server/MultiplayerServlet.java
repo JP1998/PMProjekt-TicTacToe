@@ -18,7 +18,7 @@ public class MultiplayerServlet extends LoggingServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/multiplayer.html")
+        request.getRequestDispatcher("/WEB-INF/multiplayer.jsp")
             .forward(request, response);
     }
 

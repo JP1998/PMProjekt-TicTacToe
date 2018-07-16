@@ -96,18 +96,18 @@ public class AIPlayer extends Player {
         }
         
         public int getNextMove() {
-            int minValue = Integer.MAX_VALUE;
+            int maxValue = Integer.MIN_VALUE;
             
             for(int i = 0; i < this.childNodes.size(); i++) {
-                if(minValue > this.childNodes.get(i).getValue()) {
-                    minValue = this.childNodes.get(i).getValue();
+                if(maxValue < this.childNodes.get(i).getValue()) {
+                    maxValue = this.childNodes.get(i).getValue();
                 }
             }
-            
-            if(minValue == Integer.MAX_VALUE) {
+        
+            if(maxValue == Integer.MAX_VALUE) {
                 return -1;
             } else {
-                return findChildByValue(minValue).getFieldChoice();
+                return findChildByValue(maxValue).getFieldChoice();
             }
         }
         

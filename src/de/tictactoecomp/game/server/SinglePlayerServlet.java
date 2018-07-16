@@ -36,7 +36,7 @@ public class SinglePlayerServlet extends LoggingServlet {
 	    if(currentPlayers.containsKey(playerId) == false) {
             SinglePlayer player = new SinglePlayer(
                     playerId,
-                    "Player 1"
+                    "Du"
             );
 
             new TicTacToeGame(player, new AIPlayer());
@@ -147,5 +147,48 @@ public class SinglePlayerServlet extends LoggingServlet {
         }
     }
     
-    // TODO: Maybe make another domain for restarting the game
+    @WebServlet("/singleplayer/reset")
+    public static class ResetServlet extends LoggingServlet {
+        
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            // GET requests are disabled for updates, as they are requests for data from the server
+            log("User with sessionId '{0}' has requested /singleplayer/reset via GET request.", req.getSession().getId());
+            resp.setStatus(405);
+        }
+         
+        @Override
+        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            if(currentPlayers == null) {
+                // the SinglePlayerServlet has not been created yet there cannot be a user registered already
+                log("User with sessionId '{0}' has requested /singleplayer/reset although /singleplayer is not yet setup.", req.getSession().getId());
+                resp.setStatus(401);
+                return;
+            }
+            
+            HttpSession session = req.getSession();
+            String playerId = session.getId();
+
+            if(!currentPlayers.containsKey(playerId)) {
+                // Since the player is not registered for a game he is not authorized to receive an update
+                log("User with sessionId '{0}' has requested /singleplayer/reset although he is not associated with a game yet.", req.getSession().getId());
+                resp.setStatus(401);
+                return;
+            }
+
+            SinglePlayer player = new SinglePlayer(
+                    playerId,
+                    "Du"
+            );
+
+            new TicTacToeGame(player, new AIPlayer());
+            
+            currentPlayers.put(
+                    playerId,
+                    player
+            );
+            
+            log("Single player game has been reset for user with id '{0}'.", playerId);
+        }
+    }
 }

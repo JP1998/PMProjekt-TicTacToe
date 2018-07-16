@@ -10,6 +10,18 @@ function initGame() {
 	updateGameState();
 }
 
+function resetGame() {
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+	  		updateGameState();
+		}
+	}
+
+	request.open("POST", url + "/reset", true);
+	request.send();
+}
+
 // Funktion für das Klick-Ereignis auf dem Spielfeld
 function handleCickOnCanvas(event) {
 	x = event.offsetX;
@@ -25,7 +37,7 @@ function handleCickOnCanvas(event) {
   			}
   		}
 
-  		request.open("POST", "http://localhost:8080/PMProjekt-TicTacToe/singleplayer/taketurn?field=" + field, true);
+  		request.open("POST", url + "/taketurn?field=" + field, true);
   		request.send();
   	}
 }
@@ -37,8 +49,6 @@ function getField(x, y) {
   field = field + 1;
   return field;
 }
-// TODO: XMLHttpRequest Objekt setzen
-// TODO: Aktualisierung des Feldes bearbeiten
 
 
 function repaint() {

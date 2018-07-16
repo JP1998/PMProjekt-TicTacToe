@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="js/field.js"></script>
         <script type="text/javascript" src="js/hint.js"></script>
-        <script type="text/javascript" src="js/multiplayergame.js"></script>
+        <script type="text/javascript" src="js/game.js"></script>
     </head>
     <body>
         <div id="header">
@@ -21,33 +21,13 @@
             </div>
         </div>
         <div id="content">
-            <table id="tablehighscore">
-                <tbody id="tbodyhighscore">
-                    <tr>
-                        <td><h2><a target="popup" onclick="window.open"
-                            width="50" height="50" scrollbars="no" toolbar="no" status="no" 
-                            resizable="yes" menubar="no" location="no" directories="no" top="10" left="10"
-                            href="popupdatei.html">Highscore</a></h2></td>
-                    </tr>
-                    <tr>
-                        <td><label>1.</label><input id="labelhighscore" readonly="readonly"></td>
-                    </tr>
-                    <tr>
-                        <td><label>2.</label><input id="labelhighscore" readonly="readonly"></td>
-                    </tr>
-                    <tr>
-                        <td><label>3.</label><input id="labelhighscore" readonly="readonly"></td>
-                    </tr>
-                    <tr>
-						<td><label>Spieler 1.<input id="spielereins"></label></td>
-					</tr>
-					<tr>
-						<td><label>Spieler 2.<input id="spielerzwei"></label></td>
-					</tr>
-                </tbody>
-            </table>
             <h1> Mehrspieler</h1>
-            <canvas id="gameCanvas" width="900" height="600" style="border:0px solid #000000;"></canvas>
+            <div id="name-container">
+	            <p id="player1-name">Player 1: ${param.player1}</p>
+	            <p id="player2-name">Player 2: ${param.player2}</p>
+            </div>
+            <canvas id="gameCanvas" width="600px" height="600px" style="border:0px solid #000000;"></canvas>
+            <p id="gameMessage"></p>
         </div>
         <div id="footer">
             <ul>
@@ -57,7 +37,8 @@
             </ul>
         </div>
         <script>
-        field();
+        var url = "http://localhost:8080/PMProjekt-TicTacToe/multiplayer";
+
         addHint();
         initGame();
         </script>
