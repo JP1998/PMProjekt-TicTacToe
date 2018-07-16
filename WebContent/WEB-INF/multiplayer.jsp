@@ -25,6 +25,7 @@
             <div id="name-container">
 	            <p id="player1-name">Player 1: ${param.player1}</p>
 	            <p id="player2-name">Player 2: ${param.player2}</p>
+	           	<button id="resetButton" onclick="resetGame();">Spiel zurücksetzen</button>
             </div>
             <canvas id="gameCanvas" width="600px" height="600px" style="border:0px solid #000000;"></canvas>
             <p id="gameMessage"></p>
