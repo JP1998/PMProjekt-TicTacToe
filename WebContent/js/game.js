@@ -72,7 +72,6 @@ function getField(x, y) {
 
 function repaint() {
 	drawField(gamestate.fields);
-	console.log(document.getElementById("gameMessage"));
 	document.getElementById("gameMessage").innerHTML = gamestate.message;
 	document.getElementById("playerwithturn-name").innerHTML = (gamestate.gameEnded)? "Spiel beendet." : "Am Zug: " + gamestate.playerwithturn;
 }
@@ -81,7 +80,6 @@ function updateGameState() {
 	var request = new XMLHttpRequest();
 	request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log(this.responseText);
 			gamestate = JSON.parse(this.responseText);
 			repaint();
 		}

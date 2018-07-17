@@ -51,9 +51,7 @@ function drawField(moves) {
 
     // if there is a winner also display the path with which the player has won
     var win = calculateWinner(moves);
-    console.log(win);
     if(win !== 0) {
-    	console.log(calculateWinFields(moves));
         drawWinner(
         		g,
         		'#428cf4',
