@@ -257,11 +257,13 @@ a:hover{
 
 #hint-content {
 	position: fixed;
-	top: 10%;
+	top: 50%;
 	left: 50%;
-	width: 800px;
-	margin-left: -400px;
-	height: 450px;
+	transform: translate(-50%, -50%);
+	width: 80%;
+	height: 80%;
+	max-width: 800px;
+	max-height: 450px;
 	background-color: white;
     visibility: hidden;
 }
