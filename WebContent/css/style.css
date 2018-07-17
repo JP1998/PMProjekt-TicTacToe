@@ -9,10 +9,10 @@ body{
 }
 
 #start ul{
-	padding-top:20px;
-	text-align:center;
-	list-style:none;
-	font-size:42pt;
+	padding-top: 20px;
+	text-align: center;
+	list-style: none;
+	font-size: 32pt;
 
 }
 
@@ -97,7 +97,7 @@ canvas{
 
 #navi ul{
 	float:right;
-	margin-top: 16px;
+	margin-top: 22px;
 	margin-right: 32px;
 	text-align:right;
 	list-style:none;
@@ -131,6 +131,10 @@ canvas{
 
 #content > ul > li {
     text-align: left; 
+}
+
+#content h1 {
+	font-weight: bold;
 }
 
 #highscore {
