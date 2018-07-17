@@ -229,7 +229,11 @@ public class TicTacToeGame {
             if(winner == null) {
                 winnerMessage = "Das Spiel endete in einem Unentschieden!";
             } else {
-                winnerMessage = StringProcessing.format("{0} hat das Spiel gewonnen!", winner.getName());
+                winnerMessage = StringProcessing.format(
+                        "{0} ha{1}t das Spiel gewonnen!",
+                        winner.getName(),
+                        ("du".equals(winner.getName().toLowerCase()))? "s" : ""
+                );
             }
             player1.setMessage(winnerMessage);
             player2.setMessage(winnerMessage);
