@@ -22,8 +22,7 @@ public class MultiplayerSignupServlet extends LoggingServlet {
 
         if(MultiplayerServlet.currentPlayerPairs != null &&
                 MultiplayerServlet.currentPlayerPairs.containsKey(req.getSession().getId())) {
-            req.getRequestDispatcher("/multiplayer")
-                .forward(req, resp);
+            resp.sendRedirect("/PMProjekt-TicTacToe/multiplayer");
         } else {
             req.getRequestDispatcher("/WEB-INF/multiplayer-signup.html")
                 .forward(req, resp);
