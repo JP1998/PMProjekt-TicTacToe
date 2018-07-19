@@ -18,12 +18,16 @@ public class PlaymenuServlet extends LoggingServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doGet(request, response);
+
         request.getRequestDispatcher("/WEB-INF/playmenu.html")
             .forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doPost(request, response);
+
         log("User with sessionId '{0}' has requested /multiplayer via POST request.", request.getSession().getId());
         response.setStatus(405);
     }

@@ -18,12 +18,16 @@ public class DatenschutzServlet extends LoggingServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        super.doGet(req, resp);
+
         req.getRequestDispatcher("/WEB-INF/datenschutz.html")
             .forward(req, resp);
     }
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
+
         log("User with sessionId '{0}' has requested /datenschutz via POST request.", req.getSession().getId());
         resp.setStatus(405);
     }

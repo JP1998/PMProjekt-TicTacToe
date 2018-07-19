@@ -18,12 +18,22 @@ public class MultiplayerSignupServlet extends LoggingServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/multiplayer-signup.html")
-            .forward(req, resp);
+        super.doGet(req, resp);
+
+        if(MultiplayerServlet.currentPlayerPairs != null &&
+                MultiplayerServlet.currentPlayerPairs.containsKey(req.getSession().getId())) {
+            req.getRequestDispatcher("/multiplayer")
+                .forward(req, resp);
+        } else {
+            req.getRequestDispatcher("/WEB-INF/multiplayer-signup.html")
+                .forward(req, resp);
+        }
     }
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
+
         log("User with sessionId '{0}' has requested /multiplayer-signup via POST request.", req.getSession().getId());
         resp.setStatus(405);
     }

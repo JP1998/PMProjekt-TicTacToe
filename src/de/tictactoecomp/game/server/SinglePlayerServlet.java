@@ -23,15 +23,21 @@ public class SinglePlayerServlet extends LoggingServlet {
 
     public SinglePlayerServlet() {
         super();
+    }
+    
+    @Override
+    public void init() throws ServletException {
         currentPlayers = new HashMap<>();
     }
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
+        super.doGet(request, response);
+
         HttpSession session = request.getSession();
         String playerId = session.getId();
-	    
+	            
         // if the player is not yet registered 
 	    if(currentPlayers.containsKey(playerId) == false) {
             SinglePlayer player = new SinglePlayer(
@@ -55,7 +61,9 @@ public class SinglePlayerServlet extends LoggingServlet {
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    // POST requests are disabled, since this site is only supposed to be called by the browser
+        super.doPost(request, response);
+        
+        // POST requests are disabled, since this site is only supposed to be called by the browser
         log("User with sessionId '{0}' has requested /singleplayer via POST request.", request.getSession().getId());
 	    response.setStatus(405);
 	}
@@ -74,6 +82,8 @@ public class SinglePlayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             // GET requests are disabled for taking turns, as they are only posts to the server
             // on which field the user is trying to take.
             log("User with sessionId '{0}' has requested /singleplayer/taketurn via GET request.", req.getSession().getId());
@@ -82,6 +92,8 @@ public class SinglePlayerServlet extends LoggingServlet {
          
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doPost(req, resp);
+
             if(currentPlayers == null) {
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /singleplayer/taketurn although /singleplayer is not yet setup.", req.getSession().getId());
@@ -119,6 +131,8 @@ public class SinglePlayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             if(currentPlayers == null) {
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /singleplayer/update although /singleplayer is not yet setup.", req.getSession().getId());
@@ -141,6 +155,8 @@ public class SinglePlayerServlet extends LoggingServlet {
          
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doPost(req, resp);
+
             // POST requests are disabled for updates, as they are requests for data from the server
             log("User with sessionId '{0}' has requested /singleplayer/update via POST request.", req.getSession().getId());
             resp.setStatus(405);
@@ -152,6 +168,8 @@ public class SinglePlayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             // GET requests are disabled for updates, as they are requests for data from the server
             log("User with sessionId '{0}' has requested /singleplayer/reset via GET request.", req.getSession().getId());
             resp.setStatus(405);
@@ -159,6 +177,8 @@ public class SinglePlayerServlet extends LoggingServlet {
          
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doPost(req, resp);
+
             if(currentPlayers == null) {
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /singleplayer/reset although /singleplayer is not yet setup.", req.getSession().getId());

@@ -22,7 +22,7 @@ import de.tictactoecomp.game.utils.StringProcessing;
 @WebServlet("/multiplayer")
 public class MultiplayerServlet extends LoggingServlet {
     
-    private static Map<String, MultiPlayerPair> currentPlayerPairs;
+    public static Map<String, MultiPlayerPair> currentPlayerPairs;
     private static final Pattern namingPattern = Pattern.compile("^[a-zA-ZäÄöÖüÜ][a-zA-Z\\-äÄöÖüÜ]{0,19}$");
     
     public MultiplayerServlet() {
@@ -32,7 +32,8 @@ public class MultiplayerServlet extends LoggingServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        super.doGet(request, response);
+
         HttpSession session = request.getSession();
         String pairId = session.getId();
         
@@ -66,6 +67,8 @@ public class MultiplayerServlet extends LoggingServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        super.doPost(request, response);
+
         log("User with sessionId '{0}' has requested /multiplayer via POST request.", request.getSession().getId());
         response.setStatus(405);
     }
@@ -85,6 +88,8 @@ public class MultiplayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             // GET requests are disabled for taking turns, as they are only posts to the server
             // on which field the user is trying to take.
             log("User with sessionId '{0}' has requested /multiplayer/taketurn via GET request.", req.getSession().getId());
@@ -94,6 +99,8 @@ public class MultiplayerServlet extends LoggingServlet {
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             if(currentPlayerPairs == null) {
+                super.doPost(req, resp);
+
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /multiplayer/taketurn although /multiplayer is not yet setup.", req.getSession().getId());
                 resp.setStatus(401);
@@ -130,6 +137,8 @@ public class MultiplayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             if(currentPlayerPairs == null) {
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /multiplayer/update although /multiplayer is not yet setup.", req.getSession().getId());
@@ -152,6 +161,8 @@ public class MultiplayerServlet extends LoggingServlet {
          
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doPost(req, resp);
+
             // POST requests are disabled for updates, as they are requests for data from the server
             log("User with sessionId '{0}' has requested /multiplayer/update via POST request.", req.getSession().getId());
             resp.setStatus(405);
@@ -163,6 +174,8 @@ public class MultiplayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             // GET requests are disabled for updates, as they are requests for data from the server
             log("User with sessionId '{0}' has requested /multiplayer/reset via GET request.", req.getSession().getId());
             resp.setStatus(405);
@@ -170,6 +183,8 @@ public class MultiplayerServlet extends LoggingServlet {
          
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doPost(req, resp);
+
             if(currentPlayerPairs == null) {
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /multiplayer/reset although /multiplayer is not yet setup.", req.getSession().getId());
@@ -204,6 +219,8 @@ public class MultiplayerServlet extends LoggingServlet {
         
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doGet(req, resp);
+
             if(currentPlayerPairs == null) {
                 // the SinglePlayerServlet has not been created yet there cannot be a user registered already
                 log("User with sessionId '{0}' has requested /multiplayer/delete although /multiplayer is not yet setup.", req.getSession().getId());
@@ -230,6 +247,8 @@ public class MultiplayerServlet extends LoggingServlet {
          
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            super.doPost(req, resp);
+
             // GET requests are disabled for updates, as they are requests for data from the server
             log("User with sessionId '{0}' has requested /multiplayer/delete via POST request.", req.getSession().getId());
             resp.setStatus(405);
