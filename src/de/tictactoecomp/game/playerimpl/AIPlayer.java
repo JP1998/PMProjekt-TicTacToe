@@ -17,36 +17,60 @@ public class AIPlayer extends Player {
 
     @Override
     public void makeMove(int field) {
+        // den letzten Zug ermitteln, und dem Baum diesen mitteilen
         int[] moves = currentGame.getCurrentGameState().getFields();
         
         if(moves.length > 0) {
             usedAITree.informOfMove(moves[moves.length - 1]);
         }
         
+        // den bestmöglichen Zug für die KI ermitteln, und dem Spiel mitteilen
         currentGame.receiveMove(this.playerId, usedAITree.getNextMove());
     }
     
     @Override
     public String getStatusJSON() {
+        // Da das JSON für die KI nicht benötig ist können wir null zurück geben
         return null;
     }
     
     private static class AITree {
         
+        /**
+         * Der Wurzeltknoten eines Spielbaumes.
+         * Dieser wird als statisch und konstant deklariert, um a) Speicherresourcen
+         * zu sparen, und b) Zeit beim Erstellen eines KI-Baumes zu sparen.
+         */
         private static final AINode staticBaseNode = new AINode();
         
+        /**
+         * Der derzeitige Wurzelknoten des Baumes.
+         * Dieser wird mit dem Spiel vorgerückt werden.
+         */
         private AINode currentGameMoveNode;
         
         public AITree() {
             this.currentGameMoveNode = staticBaseNode;
         }
         
+        /**
+         * Diese Methode ermittelt den nächsten Zug, der von der KI, die diesen
+         * Baum besitzt gemacht werden muss.
+         * 
+         * @return der bestmögliche Zug für die KI
+         */
         public int getNextMove() {
             int nextMove = currentGameMoveNode.getNextMove();
             currentGameMoveNode = currentGameMoveNode.findChoiceNode(nextMove);
             return nextMove;
         }
         
+        /**
+         * Diese Methode muss aufgerufen wird, sobald ein Zug von einem anderen
+         * Spieler getan wird, als die KI, die diesen Baum besitzt.
+         *
+         * @param field das Feld, das von dem anderen Spieler besetzt wurde
+         */
         public void informOfMove(int field) {
             currentGameMoveNode = currentGameMoveNode.findChoiceNode(field);
         }
@@ -54,17 +78,33 @@ public class AIPlayer extends Player {
     
     private static class AINode {
         
+        /**
+         * Das Feld, das dieser Knoten spielt
+         */
         private int fieldChoice;
+        /**
+         * Dieses Array beinhaltet alle Züge, die im Zustand des Spiels
+         * bei diesem Knoten gespielt wurden, in der Reihenfolge, in der
+         * sie gespielt wurden.
+         */
         private Integer[] fieldHistory;
         
+        /**
+         * Diese Liste beinhaltet alle Kinderknoten. Jeder Kindknoten ist
+         * ein valider Zug.
+         */
         private List<AINode> childNodes;
+        /**
+         * Der Wert des Knotens, der genutzt wird, um den statistisch besten
+         * Zug in jeder Situation ermitteln zu können.
+         */
         private int value;
         
         public AINode() {
             this(new ArrayList<>());
         }
         
-        public AINode(List<Integer> fields) {
+        private AINode(List<Integer> fields) {
             this.fieldChoice = (fields.size() == 0)? -1 : fields.get(fields.size() - 1);
             this.fieldHistory = new Integer[fields.size()];
             this.fieldHistory = fields.toArray(this.fieldHistory);
@@ -87,14 +127,33 @@ public class AIPlayer extends Player {
             }
         }
         
+        /**
+         * Diese Methode gibt Ihnen das Feld,
+         * das von diesem Knoten (virtuell) gespielt wird.
+         * 
+         * @return das Feld, das von diesem Knoten gespielt wird
+         */
         public int getFieldChoice() {
             return fieldChoice;
         }
         
+        /**
+         * Diese Methode liefert Ihnen den Wert dieses Knotens.
+         * 
+         * @return der Wert dieses Knotens
+         */
         public int getValue() {
             return value;
         }
         
+        /**
+         * Diese Methode gibt das Feld zurück, das von dem Kindknoten
+         * mit dem höchsten Wert gespielt wird.
+         * Daher ist dies statistisch gesehen der bestmögliche Zug, wenn
+         * die Annahme getroffen wird, dass die KI der zweite Spieler ist.
+         * 
+         * @return das Feld, das statistisch gesehen der optimale Zug ist
+         */
         public int getNextMove() {
             int maxValue = Integer.MIN_VALUE;
             
@@ -111,6 +170,14 @@ public class AIPlayer extends Player {
             }
         }
         
+        /**
+         * Diese Methode findet den Kindknoten, der den gegebenen Wert hat.
+         * Falls dieser Kindknoten nicht existiert gibt diese Methode {@code null}
+         * zurück.
+         *
+         * @param val Der Wert, den der gefundene Knoten haben soll
+         * @return der Knoten, der Kind dieses Knotens ist, und den gegebenen Wert hat
+         */
         private AINode findChildByValue(int val) {
             for(int i = 0; i < this.childNodes.size(); i++) {
                 if(this.childNodes.get(i).getValue() == val) {
@@ -120,6 +187,14 @@ public class AIPlayer extends Player {
             return null;
         }
         
+        /**
+         * Diese Methode findet den Kindknoten, der das gegebene Feld spielt.
+         * Falls dieser Kindknoten nicht existiert gibt diese Methode {@code null}
+         * zurück.
+         * 
+         * @param move Das Feld, das von dem gefundenen Knoten gespielt werden soll
+         * @return der Knoten, der Kind dieses Knotens ist, und das gegebene Feld spielt
+         */
         public AINode findChoiceNode(int move) {
             for(int i = 0; i < this.childNodes.size(); i++) {
                 if(this.childNodes.get(i).getFieldChoice() == move) {
@@ -129,6 +204,11 @@ public class AIPlayer extends Player {
             return null;
         }
         
+        /**
+         * Diese Methode ermittelt die Summe der Werte der Kindknoten dieses Knotens.
+         *
+         * @return der Wert dieses Knotens
+         */
         private int calculateValue() {
             int result = 0;
             
@@ -139,6 +219,13 @@ public class AIPlayer extends Player {
             return result;
         }
         
+        /**
+         * Diese Methode ermittelt, ob das gegebene Array das gegebene Element beinhaltet.
+         * 
+         * @param moves das Array, in dem gesucht werden soll
+         * @param move das Element, nach dem gesucht werden soll
+         * @return ob das gegebene Element in dem Array enthalten ist
+         */
         public static boolean moveContained(Integer[] moves, int move) {
             for(int i = 0; i < moves.length; i++) {
                 if(moves[i] == move) {
@@ -148,6 +235,17 @@ public class AIPlayer extends Player {
             return false;
         }
         
+        /**
+         * Diese Methode teilt die gegebene Liste, die alle Züge des Spiels in der
+         * Reihenfolge ihrer zeitlichen  Betätigung enthält, in ein zwei-dimensionales
+         * Array, das für beide Spieler jeweils alle betätigten Züge in derselben
+         * Reihenfolge enthält. Die erste Dimension repräsentiert hierbei den Spieler,
+         * und die zweite für die Züge. D.h. dass {@code result[0][1]} ist der zweite
+         * Zug von Spieler 1.
+         * 
+         * @param fields die Liste mit Zügen, die auf die zwei Spieler aufzuteilen ist
+         * @return das Array mit den Zügen auf die beiden Spieler aufgeteilt
+         */
         public static int[][] splitFieldHistory(List<Integer> fields) {
             int[][] result = new int[2][];
 
@@ -161,8 +259,18 @@ public class AIPlayer extends Player {
             return result;
         }
         
+        /**
+         * Diese Methode ermittelt den Gewinner aus dem gegebenen zwei-dimensionalen int-Array.
+         * Dabei steht die erste Dimension für den Spieler, und die zweite für den Zug, den
+         * der jeweilige Spieler getätigt hat. Daher repräsentiert {@code movesToEval[1][0]}
+         * den ersten Zug, den der zweite Spieler getätigt hat.
+         * 
+         * @param movesToEval die Züge, die auszuwerten sind, auf die beiden Spieler aufgeteilt
+         * @return 1, falls der erste Spieler gewonnen hat, -1 falls der zweite Spieler gewonnen hat
+         *         0, falls keiner der beiden Spieler gewonnen hat
+         */
         public static int calculateWinner(int[][] movesToEval) {
-            // ein Array, das alle m�glichen Gewinnkombinationen aufstellt
+            // ein Array, das alle möglichen Gewinnkombinationen aufstellt
             int[][] winningMovesToCheck = {
                     { 1, 2, 3 },
                     { 4, 5, 6 },
@@ -210,7 +318,7 @@ public class AIPlayer extends Player {
                     }
                 }
                 
-                // falls ein Zug nicht enthalten ist könne wir false zurück geben
+                // falls ein Zug nicht enthalten ist können wir false zurück geben
                 if(!found) {
                     return false;
                 }
@@ -220,7 +328,5 @@ public class AIPlayer extends Player {
             // können wir true zurück geben
             return true;
         }
-        
-
     }
 }

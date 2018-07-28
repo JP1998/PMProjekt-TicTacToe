@@ -11,9 +11,12 @@ public class SinglePlayer extends Player {
     
     @Override
     public void makeMove(int field) {
+        // einen Spielzug machen
         int error = currentGame.receiveMove(this.playerId, field);
         
+        // falls Zug valide, und Spiel nicht zu ende:
         if(error == 0 && !currentGame.isGameEnded()) {
+            // lass die KI einen Zug machen
             currentGame.getOpponent(this).makeMove(-1);
         }
     }

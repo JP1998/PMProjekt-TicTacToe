@@ -118,11 +118,36 @@ public class TicTacToeGame {
         }
     }
     
+    /**
+     * Der Fehlercode, der bei einer erfolgreichen Tätigung eines Zuges
+     * zurückgegeben wird.
+     */
     public static final int ERROR_CODE_SUCCESS = 0;
+    /**
+     * Der Fehlercode, der zurückgegeben wird, falls die Tätigung eines Zuges
+     * abgebrochen wird, da das Spiel bereits beendet ist.
+     */
     public static final int ERROR_CODE_GAMEENDED = 1;
+    /**
+     * Der Fehlercode, der zurückgegeben wird, falls die Tätigung eines Zuges
+     * abgebrochen wird, da der Spieler dessen Id übergeben wurde nicht zu diesem
+     * Spiel gehört. Theoretisch ist dieser Fehler nicht erreichbar.
+     */
     public static final int ERROR_CODE_ILLEGALPLAYERID = 2;
+    /**
+     * Der Fehlercode, der zurückgegeben wird, falls die Tätigung eines Zuges
+     * abgebrochen wird, da der Spieler dessen Id übergeben wurde nicht am Zug ist.
+     */
     public static final int ERROR_CODE_NOTPLAYERSTURN = 4;
+    /**
+     * Der Fehlercode, der zurückgegeben wird, falls die Tätigung eines Zuges
+     * abgebrochen wird, da das gewünschte Feld außerhalb des erlaubten Bereiches (1-9) liegt.
+     */
     public static final int ERROR_CODE_NONEXISTINGFIELD = 8;
+    /**
+     * Der Fehlercode, der zurückgegeben wird, falls die Tätigung eines Zuges
+     * abgebrochen wird, da das gewünschte Feld bereits belegt ist.
+     */
     public static final int ERROR_CODE_TAKENFIELD = 16;
     
     /**

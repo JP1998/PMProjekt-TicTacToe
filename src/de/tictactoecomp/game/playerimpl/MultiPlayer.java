@@ -5,6 +5,10 @@ import de.tictactoecomp.game.utils.StringProcessing;
 
 public class MultiPlayer extends Player {
 
+    /**
+     * Der letzte Fehlercode, der dazu genutzt wird, um in
+     * {@link MultiPlayerPair} zu ermitteln, ob ein Zug gültig war
+     */
     private int lastErrorCode;
     
     public MultiPlayer(String id, String name) {

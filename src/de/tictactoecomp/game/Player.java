@@ -110,8 +110,10 @@ public abstract class Player {
     }
     
     /**
-     * Diese Methode 
-     * @return
+     * Diese Methode erstellt den Inhalt des JSON-Arrays, das die einzelnen Züge des
+     * Spiels, das diesem Spieler zugeteilt ist, darstellt.
+     * 
+     * @return die einzelnen Züge des Spiels als Integer, im JSON-validen Format
      */
     protected String createFieldsArray() {
         int[] fields = currentGame.getCurrentGameState().getFields();
